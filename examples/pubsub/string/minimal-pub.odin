@@ -7,19 +7,16 @@ import "core:os"
 
 import eCAL "../../../ecal"
 
-main :: proc() {
-    
-    args := os.args
-	defer delete(args)
+main ::proc(){
+    args: = os.args
 
-	argc := len(args)
-    argv := make([dynamic]cstring, argc)
-    defer delete(argv)
-
+    argc: = len(args)
+    argv: = make([dynamic] cstring, argc)
+    defer delete (argv)
 
     for i in 0 ..< argc {
-		argv[i] = strings.unsafe_string_to_cstring(args[i])
-	}
+        argv[i] = strings.unsafe_string_to_cstring(args[i])
+    }
 
     version_str := eCAL.GetVersionString()
     version_date_str := eCAL.GetVersionDateString()
@@ -41,10 +38,10 @@ main :: proc() {
 
         msg := fmt.aprintf("Hello from ODIN %d", count)
 
-        out_str : cstring = strings.clone_to_cstring(msg)
+        out_str : cstring = strings.clone_to_cstring(msg, context.temp_allocator)
         out_len : c.int = c.int(len(out_str))
 
-        fmt.printfln("Topic \"%s\" Publishing \"%s\"\n", "Hello", out_str)
+        fmt.printfln("Topic \"%s\" Publishing \"%s\"", "Hello", out_str)
 
         eCAL.Pub_Send(pub, cast(rawptr)out_str, out_len, -1)
 
@@ -54,4 +51,6 @@ main :: proc() {
 
     // finalize eCAL API
     eCAL.Finalize(eCAL.eCAL_Init_All)
+
+    defer free_all(context.temp_allocator)
 }

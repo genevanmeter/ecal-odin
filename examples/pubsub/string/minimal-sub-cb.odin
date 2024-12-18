@@ -1,12 +1,27 @@
 
-package minimal_sub;
+package minimal_sub_cb;
 
 import "core:fmt"
 import "core:c"
 import "core:strings"
 import "core:os"
+import "base:runtime"
 
 import eCAL "../../../ecal"
+
+custom_context: runtime.Context
+
+OnReceive :: proc "c" (topic_name_ : cstring, data_ : ^eCAL.SReceiveCallbackDataC, par_ : rawptr)
+{
+    context = custom_context
+
+    fmt.printf("Received topic \"%s\" with ", topic_name_);
+
+    in_str := strings.string_from_ptr(cast(^u8)data_.buf, cast(int)data_.size)
+    defer delete(in_str)
+
+    fmt.printf("\"%s\"\n", in_str)
+}
 
 main :: proc() {
     
@@ -31,23 +46,13 @@ main :: proc() {
     
     eCAL.Sub_Create(sub, "Hello", "base:std::string", "", 0);
 
+    eCAL.Sub_AddReceiveCallback(sub, OnReceive, nil);
+
     for {
         if eCAL.Ok() == 0 do break
 
-        rcv_buf : rawptr
-        rcv_buf_len : i32
-        time : i64
-
-        // receive content with 100 ms timeout
-        success := eCAL.Sub_Receive_Buffer_Alloc(sub, &rcv_buf, &rcv_buf_len, &time, 100);
-        if(success != 0)
-        {
-            in_str := strings.string_from_ptr(cast(^u8)rcv_buf, cast(int)rcv_buf_len)
-            fmt.printf("Received topic \"Hello\" with \"%s\"\n", in_str);
-
-            // free buffer allocated by eCAL
-            eCAL.FreeMem(rcv_buf)
-        }
+        // sleep 100 ms
+        eCAL.Process_SleepMS(100);
     }
 
     // destroy subscriber

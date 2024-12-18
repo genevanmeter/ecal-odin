@@ -8,21 +8,26 @@ See [Ubuntu](https://github.com/eclipse-ecal/ecal?tab=readme-ov-file#ubuntu)
 
 ## Run Examples
 
-Publisher:
+Publisher based on [samples/c/pubsub/string/minimal_snd](https://github.com/eclipse-ecal/ecal/blob/support/v5.13/samples/c/pubsub/string/minimal_snd/src/minimal_snd.c)
 
 ```
 odin run examples/pubsub/string/minimal-pub.odin -file
 ```
 
-Subscriber:
+Subscriber based on [samples/c/pubsub/string/minimal_rec](https://github.com/eclipse-ecal/ecal/blob/support/v5.13/samples/c/pubsub/string/minimal_rec/src/minimal_rec.c)
 ```
 odin run examples/pubsub/string/minimal-sub.odin -file
 ```
 
-## Generate Bindings
+Subscriber with callback based on [samples/c/pubsub/string/minimal_rec_cb](https://github.com/eclipse-ecal/ecal/blob/support/v5.13/samples/c/pubsub/string/minimal_rec_cb/src/minimal_rec_cb.c)
+```
+odin run examples/pubsub/string/minimal-sub-cb.odin -file
+```
+
+## (Optional) Generate Bindings
 
 
-The bindings were generated against v5.13.3.  [Runic](https://github.com/Samudevv/runic) is used to generate the bindings.
+The bindings were generated via [Runic](https://github.com/Samudevv/runic) against eCAL v5.13.3.
 
 ```
 wget https://github.com/Samudevv/runic/releases/download/0.4/runic.linux-x86_64
