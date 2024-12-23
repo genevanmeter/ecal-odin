@@ -54,15 +54,7 @@ main ::proc(){
             defer delete(in_buf)
 
             intrinsics.mem_copy(&in_buf[0], rcv_buf, rcv_buf_len)
-
-    
-
-            fmt.println(in_buf)
-
-    
-
             
-
             if message, ok := protobuf.decode(protos.Person, in_buf); ok {
                 fmt.printf("Decoded message: %#v\n", message)
             } else {
