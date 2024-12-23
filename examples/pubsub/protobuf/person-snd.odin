@@ -30,7 +30,7 @@ main ::proc(){
 
     pub := eCAL.Pub_New()
     
-    eCAL.Pub_Create(pub, "person", "proto", "", 0)
+    eCAL.Pub_Create(pub, "person", "pb.People.Person", "", 0)
 
 
     count := 0
