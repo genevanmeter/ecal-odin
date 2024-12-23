@@ -54,14 +54,10 @@ main ::proc(){
         }
 
         if encoded_buffer, encode_ok := protobuf.encode(message); encode_ok {
-            fmt.printf("Encoded message: %x\nEncode Length: %d\n", encoded_buffer, len(encoded_buffer))
+            fmt.printf("Encoding message: %#v\n", message)
+
             msg_len := i32(len(encoded_buffer))
             eCAL.Pub_Send(pub, cast(rawptr)&encoded_buffer[0], msg_len, -1)
-            if test_msg, ok := protobuf.decode(protos.Person, encoded_buffer); ok {
-			fmt.printf("Decoded message: %#v\n", test_msg)
-            } else {
-                fmt.eprintf("Failed to decode message\n")
-            }
         }
         else {
             fmt.eprintf("Failed to encode message\n")
