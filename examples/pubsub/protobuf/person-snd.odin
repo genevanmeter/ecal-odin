@@ -28,10 +28,19 @@ main ::proc(){
 
     eCAL.Initialize(cast(c.int)argc, cast(^cstring)(&argv[0]), "person publisher", eCAL.eCAL_Init_Default)
 
-    pub := eCAL.Pub_New()
-    
-    eCAL.Pub_Create(pub, "person", "pb.People.Person", "", 0)
+    descriptor, ok := os.read_entire_file("./protos/proto.desc", context.allocator)
+	if !ok {
+		// could not read file
+		return
+	}
+	defer delete(descriptor, context.allocator)
 
+    descriptor_cstr := strings.clone_to_cstring(string(descriptor))
+
+    // Create the publisher
+    pub := eCAL.Pub_New()
+    // NB topic_type must have "proto:" preceeding the protobuf to inform ecal the encoding is proto
+    eCAL.Pub_Create(pub, "person", "proto:pb.People.Person", descriptor_cstr, i32(len(descriptor_cstr)))
 
     count := 0
 
@@ -57,6 +66,7 @@ main ::proc(){
             fmt.printf("Encoding message: %#v\n", message)
 
             msg_len := i32(len(encoded_buffer))
+            // Publish the ecal message
             eCAL.Pub_Send(pub, cast(rawptr)&encoded_buffer[0], msg_len, -1)
         }
         else {
