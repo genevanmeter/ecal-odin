@@ -1,11 +1,12 @@
 package person_snd
 
-import "base:intrinsics"
 
 import "core:os"
 import "core:fmt"
 import "core:c"
 import "core:strings"
+import "core:mem"
+
 
 import eCAL "../../../ecal"
 
@@ -30,9 +31,18 @@ main ::proc(){
 
     eCAL.Initialize(cast(c.int)argc, cast(^cstring)(&argv[0]), "person subscriber", eCAL.eCAL_Init_Default)
 
+    descriptor, ok := os.read_entire_file("./protos/proto.desc", context.allocator)
+	if !ok {
+		// could not read file
+		return
+	}
+	defer delete(descriptor, context.allocator)
+
+    descriptor_cstr := strings.clone_to_cstring(string(descriptor))
+
     sub := eCAL.Sub_New()
     
-    eCAL.Sub_Create(sub, "person", "pb.People.Person", "", 0)
+    eCAL.Sub_Create(sub, "person", "proto:pb.People.Person", descriptor_cstr, i32(len(descriptor_cstr)))
 
     for {
         if eCAL.Ok() == 0 do break
@@ -53,7 +63,8 @@ main ::proc(){
             in_buf := make([]u8, rcv_buf_len)
             defer delete(in_buf)
 
-            intrinsics.mem_copy(&in_buf[0], rcv_buf, rcv_buf_len)
+            mem.copy(&in_buf[0], rcv_buf, int(rcv_buf_len))
+
             
             if message, ok := protobuf.decode(protos.Person, in_buf); ok {
                 fmt.printf("Decoded message: %#v\n", message)

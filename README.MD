@@ -24,6 +24,10 @@ Subscriber with callback based on [samples/c/pubsub/string/minimal_rec_cb](https
 odin run examples/pubsub/string/minimal-sub-cb.odin -file
 ```
 
+### Protobuf Example
+
+See [example/pubsub/protobuf](examples/pubsub/protobuf/README.md)
+
 ## (Optional) Generate Bindings
 
 
