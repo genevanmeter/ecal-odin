@@ -23,7 +23,7 @@ main ::proc(){
 
     fmt.printfln("eCAL Version: %s\nBuild Date: %s\n",version_str, version_date_str)
 
-    eCAL.Initialize(cast(c.int)argc, cast(^cstring)(&argv[0]), "minimal_pub", eCAL.eCAL_Init_Default)
+    eCAL.Initialize(cast(c.int)argc, cast(^cstring)(&argv[0]), "minimal_pub", eCAL.Init_Default)
 
     pub := eCAL.Pub_New()
     
@@ -50,7 +50,7 @@ main ::proc(){
     }
 
     // finalize eCAL API
-    eCAL.Finalize(eCAL.eCAL_Init_All)
+    eCAL.Finalize(eCAL.Init_All)
 
     defer free_all(context.temp_allocator)
 }

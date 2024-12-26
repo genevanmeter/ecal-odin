@@ -1,19 +1,19 @@
 package ecal
 
-eCAL_Init_Publisher :: 1
-eCAL_Init_Subscriber :: 2
-eCAL_Init_Service :: 4
-eCAL_Init_Monitoring :: 8
-eCAL_Init_Logging :: 16
-eCAL_Init_TimeSync :: 32
-eCAL_Init_RPC :: 64
-eCAL_Init_ProcessReg :: 128
-eCAL_Init_All :: (0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20 | 0x40 | 0x80)
-eCAL_Init_Default :: (0x01 | 0x02 | 0x04 | 0x10 | 0x20 | 0x80)
+Init_Publisher :: 1
+Init_Subscriber :: 2
+Init_Service :: 4
+Init_Monitoring :: 8
+Init_Logging :: 16
+Init_TimeSync :: 32
+Init_RPC :: 64
+Init_ProcessReg :: 128
+Init_All :: (0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20 | 0x40 | 0x80)
+Init_Default :: (0x01 | 0x02 | 0x04 | 0x10 | 0x20 | 0x80)
 
-eCAL_Process_eSeverity :: enum u32 {proc_sev_unknown = 0, proc_sev_healthy = 1, proc_sev_warning = 2, proc_sev_critical = 3, proc_sev_failed = 4, }
-eCAL_Process_eSeverity_Level :: enum u32 {proc_sev_level1 = 1, proc_sev_level2 = 2, proc_sev_level3 = 3, proc_sev_level4 = 4, proc_sev_level5 = 5, }
-eCAL_Process_eStartMode :: enum u32 {proc_smode_normal = 0, proc_smode_hidden = 1, proc_smode_minimized = 2, proc_smode_maximized = 3, }
+Process_eSeverity :: enum u32 {proc_sev_unknown = 0, proc_sev_healthy = 1, proc_sev_warning = 2, proc_sev_critical = 3, proc_sev_failed = 4, }
+Process_eSeverity_Level :: enum u32 {proc_sev_level1 = 1, proc_sev_level2 = 2, proc_sev_level3 = 3, proc_sev_level4 = 4, proc_sev_level5 = 5, }
+Process_eStartMode :: enum u32 {proc_smode_normal = 0, proc_smode_hidden = 1, proc_smode_minimized = 2, proc_smode_maximized = 3, }
 ECAL_HANDLE :: rawptr
 eQOSPolicy_HistoryKindC :: enum u32 {keep_last_history_qos = 0, keep_all_history_qos = 1, }
 eQOSPolicy_ReliabilityC :: enum u32 {best_effort_reliability_qos = 0, reliable_reliability_qos = 1, }
@@ -24,9 +24,9 @@ SWriterQOSC :: struct {
 }
 eTransportLayerC :: enum u32 {tlayer_none = 0, tlayer_udp_mc = 1, tlayer_shm = 4, tlayer_tcp = 5, tlayer_inproc = 42, tlayer_all = 255, }
 eSendModeC :: enum i32 {smode_none = -1, smode_off = 0, smode_on = 1, smode_auto = 2, }
-eCAL_Publisher_Event :: enum u32 {pub_event_none = 0, pub_event_connected = 1, pub_event_disconnected = 2, pub_event_dropped = 3, pub_event_update_connection = 4, }
+Publisher_Event :: enum u32 {pub_event_none = 0, pub_event_connected = 1, pub_event_disconnected = 2, pub_event_dropped = 3, pub_event_update_connection = 4, }
 SPubEventCallbackDataC :: struct {
-    type: eCAL_Publisher_Event,
+    type: Publisher_Event,
     time: i64,
     clock: i64,
     tid: cstring,
@@ -49,9 +49,9 @@ SReceiveCallbackDataC :: struct {
     clock: i64,
 }
 ReceiveCallbackCT :: #type proc "c" (topic_name_: cstring, data_: ^SReceiveCallbackDataC, par_: rawptr)
-eCAL_Subscriber_Event :: enum u32 {sub_event_none = 0, sub_event_connected = 1, sub_event_disconnected = 2, sub_event_dropped = 3, sub_event_timeout = 4, sub_event_corrupted = 5, sub_event_update_connection = 6, }
+Subscriber_Event :: enum u32 {sub_event_none = 0, sub_event_connected = 1, sub_event_disconnected = 2, sub_event_dropped = 3, sub_event_timeout = 4, sub_event_corrupted = 5, sub_event_update_connection = 6, }
 SSubEventCallbackDataC :: struct {
-    type: eCAL_Subscriber_Event,
+    type: Subscriber_Event,
     time: i64,
     clock: i64,
     tid: cstring,
@@ -145,10 +145,10 @@ foreign ecal_runic {
     Process_GetRBytes :: proc() -> i64 ---
 
     @(link_name = "eCAL_Process_SetState")
-    Process_SetState :: proc(severity_: eCAL_Process_eSeverity, level_: eCAL_Process_eSeverity_Level, info_: cstring) ---
+    Process_SetState :: proc(severity_: Process_eSeverity, level_: Process_eSeverity_Level, info_: cstring) ---
 
     @(link_name = "eCAL_Process_StartProcess")
-    Process_StartProcess :: proc(proc_name_: cstring, proc_args_: cstring, working_dir_: cstring, create_console_: i32, process_mode_: eCAL_Process_eStartMode, block_: i32) -> i32 ---
+    Process_StartProcess :: proc(proc_name_: cstring, proc_args_: cstring, working_dir_: cstring, create_console_: i32, process_mode_: Process_eStartMode, block_: i32) -> i32 ---
 
     @(link_name = "eCAL_Process_StopProcessName")
     Process_StopProcessName :: proc(proc_name_: cstring) -> i32 ---
@@ -211,13 +211,13 @@ foreign ecal_runic {
     Pub_Send :: proc(handle_: ECAL_HANDLE, buf_: rawptr, buf_len_: i32, time_: i64) -> i32 ---
 
     @(link_name = "eCAL_Pub_AddEventCallback")
-    Pub_AddEventCallback :: proc(handle_: ECAL_HANDLE, type_: eCAL_Publisher_Event, callback_: PubEventCallbackCT, par_: rawptr) -> i32 ---
+    Pub_AddEventCallback :: proc(handle_: ECAL_HANDLE, type_: Publisher_Event, callback_: PubEventCallbackCT, par_: rawptr) -> i32 ---
 
     @(link_name = "eCAL_Pub_AddEventCallbackC")
-    Pub_AddEventCallbackC :: proc(handle_: ECAL_HANDLE, type_: eCAL_Publisher_Event, callback_: PubEventCallbackCT, par_: rawptr) -> i32 ---
+    Pub_AddEventCallbackC :: proc(handle_: ECAL_HANDLE, type_: Publisher_Event, callback_: PubEventCallbackCT, par_: rawptr) -> i32 ---
 
     @(link_name = "eCAL_Pub_RemEventCallback")
-    Pub_RemEventCallback :: proc(handle_: ECAL_HANDLE, type_: eCAL_Publisher_Event) -> i32 ---
+    Pub_RemEventCallback :: proc(handle_: ECAL_HANDLE, type_: Publisher_Event) -> i32 ---
 
     @(link_name = "eCAL_Pub_Dump")
     Pub_Dump :: proc(handle_: ECAL_HANDLE, buf_: rawptr, buf_len_: i32) -> i32 ---
@@ -268,13 +268,13 @@ foreign ecal_runic {
     Sub_RemReceiveCallback :: proc(handle_: ECAL_HANDLE) -> i32 ---
 
     @(link_name = "eCAL_Sub_AddEventCallback")
-    Sub_AddEventCallback :: proc(handle_: ECAL_HANDLE, type_: eCAL_Subscriber_Event, callback_: SubEventCallbackCT, par_: rawptr) -> i32 ---
+    Sub_AddEventCallback :: proc(handle_: ECAL_HANDLE, type_: Subscriber_Event, callback_: SubEventCallbackCT, par_: rawptr) -> i32 ---
 
     @(link_name = "eCAL_Sub_AddEventCallbackC")
-    Sub_AddEventCallbackC :: proc(handle_: ECAL_HANDLE, type_: eCAL_Subscriber_Event, callback_: SubEventCallbackCT, par_: rawptr) -> i32 ---
+    Sub_AddEventCallbackC :: proc(handle_: ECAL_HANDLE, type_: Subscriber_Event, callback_: SubEventCallbackCT, par_: rawptr) -> i32 ---
 
     @(link_name = "eCAL_Sub_RemEventCallback")
-    Sub_RemEventCallback :: proc(handle_: ECAL_HANDLE, type_: eCAL_Subscriber_Event) -> i32 ---
+    Sub_RemEventCallback :: proc(handle_: ECAL_HANDLE, type_: Subscriber_Event) -> i32 ---
 
     @(link_name = "eCAL_Sub_GetTypeName")
     Sub_GetTypeName :: proc(handle_: ECAL_HANDLE, buf_: rawptr, buf_len_: i32) -> i32 ---

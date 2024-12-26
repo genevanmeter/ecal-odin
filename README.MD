@@ -30,7 +30,10 @@ odin run examples/pubsub/string/minimal-sub-cb.odin -file
 The bindings were generated via [Runic](https://github.com/Samudevv/runic) against eCAL v5.13.3.
 
 ```
-wget https://github.com/Samudevv/runic/releases/download/0.4/runic.linux-x86_64
-chmod +x runic.linux-x86_64
-./runic.linux-x86_64 ecal/rune.yml
+wget https://github.com/Samudevv/runic/releases/download/0.5/runic-x86_64.AppImage
+chmod +x runic-x86_64.AppImage
+./runic-x86_64.AppImage ecal/rune.yml
+# Fix a generated constants 
+sed -i '/Init_All ::/ s/`//g' ecal/ecal.odin
+sed -i '/Init_Default ::/ s/`//g' ecal/ecal.odin
 ```

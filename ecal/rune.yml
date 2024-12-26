@@ -17,6 +17,8 @@ to:
   package: ecal
   trim_prefix:
     functions: eCAL_
+    constants: eCAL_
+    types: eCAL_
   no_build_tag: yes
   use_when_else: yes
   ignore_arch: yes
