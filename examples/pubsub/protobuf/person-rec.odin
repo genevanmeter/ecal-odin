@@ -31,6 +31,7 @@ main ::proc(){
 
     eCAL.Initialize(cast(c.int)argc, cast(^cstring)(&argv[0]), "person subscriber", eCAL.Init_Default)
 
+    // Read the descriptor generated with protoc -o 
     descriptor, ok := os.read_entire_file("./protos/proto.desc", context.allocator)
 	if !ok {
 		// could not read file
@@ -41,9 +42,11 @@ main ::proc(){
     descriptor_cstr := strings.clone_to_cstring(string(descriptor))
 
     sub := eCAL.Sub_New()
-    
+    // NB topic_type must have "proto:" preceeding the protobuf to inform ecal the encoding is proto
     eCAL.Sub_Create(sub, "person", "proto:pb.People.Person", descriptor_cstr, i32(len(descriptor_cstr)))
 
+    delete(descriptor_cstr)
+    
     for {
         if eCAL.Ok() == 0 do break
 

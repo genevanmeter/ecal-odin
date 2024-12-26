@@ -28,6 +28,7 @@ main ::proc(){
 
     eCAL.Initialize(cast(c.int)argc, cast(^cstring)(&argv[0]), "person publisher", eCAL.Init_Default)
 
+    // Read the descriptor generated with protoc -o
     descriptor, ok := os.read_entire_file("./protos/proto.desc", context.allocator)
 	if !ok {
 		// could not read file
@@ -42,6 +43,7 @@ main ::proc(){
     // NB topic_type must have "proto:" preceeding the protobuf to inform ecal the encoding is proto
     eCAL.Pub_Create(pub, "person", "proto:pb.People.Person", descriptor_cstr, i32(len(descriptor_cstr)))
 
+    delete(descriptor_cstr)
     count := 0
 
     for {
