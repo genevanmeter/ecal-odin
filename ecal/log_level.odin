@@ -17,12 +17,32 @@
 * ========================= eCAL LICENSE =================================
 */
 /**
-* @file   ecal_c/ecal.h
-* @brief  eCAL main c header file
+* @file   ecal_c/log.h
+* @brief  eCAL logging c interface
 **/
 package ecal
 
+import "core:c"
 
+_ :: c
 
 foreign import lib "system:libecal_core_c.so"
+
+/**
+* @brief Values that represent different log level to filter on monitoring.
+**/
+Logging_eLogLevel :: enum c.int {
+	none    = 0,
+	all     = 255,
+	info    = 1,
+	warning = 2,
+	error   = 4,
+	fatal   = 8,
+	debug1  = 16,
+	debug2  = 32,
+	debug3  = 64,
+	debug4  = 128,
+}
+
+Logging_Filter :: c.uchar //!< This type is to be used as a bitmask for the activated logging levels
 

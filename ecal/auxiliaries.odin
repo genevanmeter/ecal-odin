@@ -17,12 +17,36 @@
 * ========================= eCAL LICENSE =================================
 */
 /**
-* @file   ecal_c/ecal.h
-* @brief  eCAL main c header file
+* @file   auxiliaries.h
+* @brief  eCAL auxiliary functions
 **/
 package ecal
 
+import "core:c"
 
+_ :: c
 
 foreign import lib "system:libecal_core_c.so"
 
+@(default_calling_convention="c", link_prefix="eCAL_")
+foreign lib {
+	/**
+	* @brief Allocate a memory block for passing it to eCAL
+	*
+	* This function is suppose to be used when the user needs to pass memory within the eCAL context, e.g. within a callback.
+	*
+	* @param size_ Size of the allocated memory block.
+	*
+	* @return Pointer to the allocated memory block if succeeded, NULL otherwise.
+	**/
+	Malloc :: proc(size_: c.size_t) -> rawptr ---
+
+	/**
+	* @brief Free a memory block which has been passed from eCAL
+	*
+	* This function basically needs to be called when eCAL returns a non-constant pointer by value or by reference to the user.
+	*
+	* @param ptr_ Non constant pointer to be freed.
+	**/
+	Free :: proc(ptr_: rawptr) ---
+}

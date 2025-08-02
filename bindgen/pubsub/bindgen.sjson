@@ -1,0 +1,21 @@
+inputs = [
+
+    "/usr/local/include/ecal_c/pubsub"
+
+]
+
+package_name = "ecal"
+
+import_lib = "system:libecal_core_c.so"
+
+opaque_types = [
+	"eCAL_Publisher"
+    "eCAL_Subscriber"
+]
+
+
+remove_type_prefix = "eCAL_"
+remove_function_prefix = "eCAL_"
+
+
+
