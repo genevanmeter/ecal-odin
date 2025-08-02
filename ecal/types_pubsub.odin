@@ -51,7 +51,7 @@ ePublisherEvent :: enum c.int {
 **/
 SPubEventCallbackData :: struct {
 	event_type:          ePublisherEvent,      //!< publisher event type
-	event_time:          c.longlong,           //!< publisher event time in us (eCAL time)
+	event_time:          c.longlong,           //!< publisher event time in microseconds (eCAL time)
 	subscriber_datatype: SDataTypeInformation, //!< datatype description of the connected subscriber
 }
 
@@ -78,7 +78,7 @@ eSubscriberEvent :: enum c.int {
 **/
 SSubEventCallbackData :: struct {
 	event_type:         eSubscriberEvent,     //!< publisher event type
-	event_time:         c.longlong,           //!< publisher event time in us (eCAL time)
+	event_time:         c.longlong,           //!< publisher event time in microseconds (eCAL time)
 	publisher_datatype: SDataTypeInformation, //!< datatype description of the connected subscriber
 }
 
@@ -96,7 +96,7 @@ SubEventCallbackT :: proc "c" (^STopicId, ^SSubEventCallbackData)
 SReceiveCallbackData :: struct {
 	buffer:         rawptr,   //!< payload buffer, containing the sent data
 	buffer_size:    c.size_t, //!< payload buffer size
-	send_timestamp: i64,      //!< publisher send timestamp in us
+	send_timestamp: i64,      //!< publisher send timestamp in microseconds
 	send_clock:     i64,      //!< publisher send clock. Each publisher increases the counter by one, every time a message is sent. It can be used to detect message drops.
 }
 

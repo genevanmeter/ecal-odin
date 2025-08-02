@@ -1,6 +1,6 @@
 inputs = [
 
-    "/usr/local/include/ecal_c/config"
+    "../ecal_c/config"
 
 ]
 
