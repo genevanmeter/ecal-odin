@@ -17,8 +17,8 @@
 * ========================= eCAL LICENSE =================================
 */
 /**
-* @file   ecal_c/ecal.h
-* @brief  eCAL main c header file
+* @file   ecal_c/export.h
+* @brief  eCAL dll / so export commands
 **/
 package ecal
 
@@ -26,3 +26,4 @@ package ecal
 
 foreign import lib "system:libecal_core_c.so"
 
+// ECALC_API_DEPRECATED :: _attribute__((deprecated)) ECALC_API

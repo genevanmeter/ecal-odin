@@ -17,12 +17,39 @@
 * ========================= eCAL LICENSE =================================
 */
 /**
-* @file   ecal_c/ecal.h
-* @brief  eCAL main c header file
+* @file   process_severity.h
+* @brief  eCAL process severity
 **/
 package ecal
 
+import "core:c"
 
+_ :: c
 
 foreign import lib "system:libecal_core_c.so"
+
+/**
+* @brief  Process severity
+**/
+Process_eSeverity :: enum c.int {
+	unknown  = 0, /*!<  0 == condition unknown     */
+	healthy  = 1, /*!<  1 == process healthy       */
+	warning  = 2, /*!<  2 == process warning level */
+	critical = 3, /*!<  3 == process critical      */
+	failed   = 4, /*!<  4 == process failed        */
+}
+
+/**
+* @brief Process Severity Level
+*
+* enumerations for ECAL_API::SetState functionality
+* where the lowest process severity is generally proc_sev_level1
+**/
+Process_eSeverityLevel :: enum c.int {
+	_1 = 1, /*!<  default severity level 1 */
+	_2 = 2, /*!<  severity level 2         */
+	_3 = 3, /*!<  severity level 3         */
+	_4 = 4, /*!<  severity level 4         */
+	_5 = 5, /*!<  severity level 5         */
+}
 

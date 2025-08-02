@@ -1,0 +1,19 @@
+inputs = [
+
+    "/usr/local/include/ecal_c/config"
+
+]
+
+package_name = "ecal"
+
+import_lib = "system:libecal_core_c.so"
+
+opaque_types = [
+	"eCAL_Configuration_Impl"
+]
+
+remove_type_prefix = "eCAL_"
+remove_function_prefix = "eCAL_"
+
+
+

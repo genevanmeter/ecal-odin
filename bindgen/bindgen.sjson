@@ -1,0 +1,40 @@
+inputs = [
+
+
+    "/usr/local/include/ecal_c/auxiliaries.h"
+    "/usr/local/include/ecal_c/config.h"
+    "/usr/local/include/ecal_c/core.h"
+    "/usr/local/include/ecal_c/ecal.h"
+    "/usr/local/include/ecal_c/export.h"
+    "/usr/local/include/ecal_c/init.h"
+    "/usr/local/include/ecal_c/log.h"
+    "/usr/local/include/ecal_c/log_level.h"
+    "/usr/local/include/ecal_c/monitoring.h"
+    "/usr/local/include/ecal_c/process.h"
+    "/usr/local/include/ecal_c/process_severity.h"
+    "/usr/local/include/ecal_c/registration.h"
+    "/usr/local/include/ecal_c/time.h"
+    "/usr/local/include/ecal_c/timer.h"
+    "/usr/local/include/ecal_c/types.h"
+    "/usr/local/include/ecal_c/util.h"
+
+
+    "./config/config"
+    "./types/types"
+    "./pubsub/pubsub"
+    "./service/service"
+]
+
+import_lib = "system:libecal_core_c.so"
+
+package_name = "ecal"
+output_folder = "../ecal"
+
+opaque_types = [
+	"eCAL_Timer"
+  "eCAL_Registration_CallbackToken"
+]
+
+
+remove_type_prefix = "eCAL_"
+remove_function_prefix = "eCAL_"

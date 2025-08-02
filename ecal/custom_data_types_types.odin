@@ -17,12 +17,22 @@
 * ========================= eCAL LICENSE =================================
 */
 /**
-* @file   ecal_c/ecal.h
-* @brief  eCAL main c header file
+* @file   types/custom_types.h
+* @brief  eCAL custom types for configuration declarations
 **/
 package ecal
 
+import "core:c"
 
+_ :: c
 
 foreign import lib "system:libecal_core_c.so"
+
+/**
+* @brief eCAL udp protocol version
+**/
+Types_UdpConfigVersion :: enum c.int {
+	_1, //!< protocol version v1 (deprecated)
+	_2, //!< protocol version v2
+}
 

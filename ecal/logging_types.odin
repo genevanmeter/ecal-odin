@@ -17,12 +17,29 @@
 * ========================= eCAL LICENSE =================================
 */
 /**
-* @file   ecal_c/ecal.h
-* @brief  eCAL main c header file
+* @file   types/logging.h
+* @brief  eCAL logging types
 **/
 package ecal
 
+import "core:c"
 
+_ :: c
 
 foreign import lib "system:libecal_core_c.so"
+
+Logging_SLogMessage :: struct {
+	time:         i64,               // time
+	host_name:    cstring,           // host name
+	process_id:   i32,               // process id
+	process_name: cstring,           // process name
+	unit_name:    cstring,           // unit name
+	level:        Logging_eLogLevel, // message level
+	content:      cstring,           // message content
+}
+
+Logging_SLogging :: struct {
+	log_messages:        ^Logging_SLogMessage, // log messages
+	log_messages_length: c.size_t,             // array of log messages
+}
 
