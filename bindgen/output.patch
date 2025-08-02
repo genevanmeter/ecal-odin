@@ -1,0 +1,12 @@
+--- pubsub/pubsub/payload_writer_pubsub.odin.ORIG	2025-08-02 12:20:23.228510070 -0400
++++ pubsub/pubsub/payload_writer_pubsub.odin	2025-08-02 12:20:28.043552098 -0400
+@@ -22,7 +22,9 @@
+ **/
+ package ecal
+ 
++import "core:c"
+ 
++_ :: c
+ 
+ foreign import lib "system:libecal_core_c.so"
+ 

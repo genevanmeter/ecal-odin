@@ -58,7 +58,7 @@ eCallState :: enum c.int {
 **/
 SClientEventCallbackData :: struct {
 	type: eClientEvent, //!< event type
-	time: c.longlong,   //!< event time in us
+	time: c.longlong,   //!< event time in microseconds
 }
 
 /**
@@ -83,7 +83,7 @@ eServerEvent :: enum c.int {
 **/
 SServerEventCallbackData :: struct {
 	type: eServerEvent, //!< event type
-	time: c.longlong,   //!< event time in us
+	time: c.longlong,   //!< event time in microseconds
 }
 
 /**

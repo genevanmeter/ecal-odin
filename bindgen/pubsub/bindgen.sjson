@@ -1,7 +1,5 @@
 inputs = [
-
-    "/usr/local/include/ecal_c/pubsub"
-
+    "../ecal_c/pubsub"
 ]
 
 package_name = "ecal"
@@ -13,9 +11,5 @@ opaque_types = [
     "eCAL_Subscriber"
 ]
 
-
 remove_type_prefix = "eCAL_"
 remove_function_prefix = "eCAL_"
-
-
-

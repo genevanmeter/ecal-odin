@@ -1,0 +1,10 @@
+--- /usr/local/include/ecal_c/types/logging.h	2025-07-30 20:42:37.000000000 -0400
++++ types/logging.h	2025-08-02 10:57:27.979196891 -0400
+@@ -25,6 +25,7 @@
+ #ifndef ecal_c_types_logging_h_included
+ #define ecal_c_types_logging_h_included
+ 
++#include <stddef.h>
+ #include <stdint.h>
+ #include <ecal_c/log_level.h>
+ 

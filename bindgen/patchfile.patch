@@ -1,0 +1,73 @@
+diff -ruN /usr/local/include/ecal_c/pubsub/types.h ecal_c/pubsub/types.h
+--- /usr/local/include/ecal_c/pubsub/types.h	2025-07-30 20:42:37.000000000 -0400
++++ ecal_c/pubsub/types.h	2025-08-02 12:05:51.623202441 -0400
+@@ -56,7 +56,7 @@
+ struct eCAL_SPubEventCallbackData
+ {
+   enum eCAL_ePublisherEvent event_type;                 //!< publisher event type
+-  long long event_time;                                 //!< publisher event time in 탎 (eCAL time)
++  long long event_time;                                 //!< publisher event time in microseconds (eCAL time)
+   struct eCAL_SDataTypeInformation subscriber_datatype; //!< datatype description of the connected subscriber
+ };
+ 
+@@ -85,7 +85,7 @@
+ struct eCAL_SSubEventCallbackData
+ {
+   enum eCAL_eSubscriberEvent event_type;               //!< publisher event type
+-  long long event_time;                                //!< publisher event time in 탎 (eCAL time)
++  long long event_time;                                //!< publisher event time in microseconds (eCAL time)
+   struct eCAL_SDataTypeInformation publisher_datatype; //!< datatype description of the connected subscriber
+ };
+ 
+@@ -104,7 +104,7 @@
+ {
+   const void* buffer;     //!< payload buffer, containing the sent data
+   size_t buffer_size;     //!< payload buffer size
+-  int64_t send_timestamp; //!< publisher send timestamp in 탎
++  int64_t send_timestamp; //!< publisher send timestamp in microseconds
+   int64_t send_clock;     //!< publisher send clock. Each publisher increases the counter by one, every time a message is sent. It can be used to detect message drops.
+ };
+ 
+diff -ruN /usr/local/include/ecal_c/registration.h ecal_c/registration.h
+--- /usr/local/include/ecal_c/registration.h	2025-07-30 20:42:37.000000000 -0400
++++ ecal_c/registration.h	2025-08-02 12:05:51.623567073 -0400
+@@ -28,6 +28,7 @@
+ #include <ecal_c/export.h>
+ #include <ecal_c/pubsub/types.h>
+ #include <ecal_c/types.h>
++#include <ecal_c/service/types.h>
+ 
+ #include <stddef.h>
+ 
+diff -ruN /usr/local/include/ecal_c/service/types.h ecal_c/service/types.h
+--- /usr/local/include/ecal_c/service/types.h	2025-07-30 20:42:37.000000000 -0400
++++ ecal_c/service/types.h	2025-08-02 12:05:51.623960380 -0400
+@@ -62,7 +62,7 @@
+ struct eCAL_SClientEventCallbackData
+ {
+   enum eCAL_eClientEvent type; //!< event type
+-  long long time;              //!< event time in 탎
++  long long time;              //!< event time in microseconds
+ };
+ 
+ /** 
+@@ -89,7 +89,7 @@
+ struct eCAL_SServerEventCallbackData
+ {
+   enum eCAL_eServerEvent type; //!< event type
+-  long long time;              //!< event time in 탎
++  long long time;              //!< event time in microseconds
+ };
+ 
+ /**
+diff -ruN /usr/local/include/ecal_c/types/logging.h ecal_c/types/logging.h
+--- /usr/local/include/ecal_c/types/logging.h	2025-07-30 20:42:37.000000000 -0400
++++ ecal_c/types/logging.h	2025-08-02 12:05:51.624279425 -0400
+@@ -25,6 +25,7 @@
+ #ifndef ecal_c_types_logging_h_included
+ #define ecal_c_types_logging_h_included
+ 
++#include <stddef.h>
+ #include <stdint.h>
+ #include <ecal_c/log_level.h>
+ 

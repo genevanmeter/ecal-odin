@@ -23,9 +23,8 @@ odin run examples/pubsub/string/hello_receive.odin -file
 
 The bindings were generated via [Odin-C-Bindgen](https://github.com/karl-zylinski/odin-c-bindgen) against eCAL v6.0.0
 
-TODO Script to automate generation
 
 ```
 cd bindgen
-./generate_bindings.sh
+./generate_bindings.sh PATH_TO_ECAL_C_HEADERS
 ```

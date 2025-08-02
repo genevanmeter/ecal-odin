@@ -1,22 +1,22 @@
 inputs = [
 
 
-    "/usr/local/include/ecal_c/auxiliaries.h"
-    "/usr/local/include/ecal_c/config.h"
-    "/usr/local/include/ecal_c/core.h"
-    "/usr/local/include/ecal_c/ecal.h"
-    "/usr/local/include/ecal_c/export.h"
-    "/usr/local/include/ecal_c/init.h"
-    "/usr/local/include/ecal_c/log.h"
-    "/usr/local/include/ecal_c/log_level.h"
-    "/usr/local/include/ecal_c/monitoring.h"
-    "/usr/local/include/ecal_c/process.h"
-    "/usr/local/include/ecal_c/process_severity.h"
-    "/usr/local/include/ecal_c/registration.h"
-    "/usr/local/include/ecal_c/time.h"
-    "/usr/local/include/ecal_c/timer.h"
-    "/usr/local/include/ecal_c/types.h"
-    "/usr/local/include/ecal_c/util.h"
+    "./ecal_c/auxiliaries.h"
+    "./ecal_c/config.h"
+    "./ecal_c/core.h"
+    "./ecal_c/ecal.h"
+    "./ecal_c/export.h"
+    "./ecal_c/init.h"
+    "./ecal_c/log.h"
+    "./ecal_c/log_level.h"
+    "./ecal_c/monitoring.h"
+    "./ecal_c/process.h"
+    "./ecal_c/process_severity.h"
+    "./ecal_c/registration.h"
+    "./ecal_c/time.h"
+    "./ecal_c/timer.h"
+    "./ecal_c/types.h"
+    "./ecal_c/util.h"
 
 
     "./config/config"
@@ -33,6 +33,11 @@ output_folder = "../ecal"
 opaque_types = [
 	"eCAL_Timer"
   "eCAL_Registration_CallbackToken"
+]
+
+// Use local, patched ecal_c headers
+clang_include_paths = [
+  "./"
 ]
 
 
