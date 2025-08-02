@@ -2,6 +2,8 @@
 
 Odin bindings for [eCAL v6](https://github.com/eclipse-ecal/ecal) 
 
+Odin Version [dev-2025-07](https://github.com/odin-lang/Odin/releases/tag/dev-2025-07)
+
 ## Install eCAL (Linux)
 
 See [Ubuntu](https://eclipse-ecal.github.io/ecal/v6.0/getting_started/setup.html#fa-ubuntu-installing-ecal-on-ubuntu)
